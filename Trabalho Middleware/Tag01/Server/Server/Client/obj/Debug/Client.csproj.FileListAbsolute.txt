@@ -1,0 +1,11 @@
+C:\Users\gabri\Desktop\Projetos\Unifil\Sistemas Distribuidos\Trabalho Middleware\Tag01\Server\Server\Client\bin\Debug\Client.exe.config
+C:\Users\gabri\Desktop\Projetos\Unifil\Sistemas Distribuidos\Trabalho Middleware\Tag01\Server\Server\Client\bin\Debug\Client.exe
+C:\Users\gabri\Desktop\Projetos\Unifil\Sistemas Distribuidos\Trabalho Middleware\Tag01\Server\Server\Client\bin\Debug\Client.pdb
+C:\Users\gabri\Desktop\Projetos\Unifil\Sistemas Distribuidos\Trabalho Middleware\Tag01\Server\Server\Client\bin\Debug\SimpleTCP.dll
+C:\Users\gabri\Desktop\Projetos\Unifil\Sistemas Distribuidos\Trabalho Middleware\Tag01\Server\Server\Client\obj\Debug\Client.Form1.resources
+C:\Users\gabri\Desktop\Projetos\Unifil\Sistemas Distribuidos\Trabalho Middleware\Tag01\Server\Server\Client\obj\Debug\Client.Properties.Resources.resources
+C:\Users\gabri\Desktop\Projetos\Unifil\Sistemas Distribuidos\Trabalho Middleware\Tag01\Server\Server\Client\obj\Debug\Client.csproj.GenerateResource.cache
+C:\Users\gabri\Desktop\Projetos\Unifil\Sistemas Distribuidos\Trabalho Middleware\Tag01\Server\Server\Client\obj\Debug\Client.csproj.CoreCompileInputs.cache
+C:\Users\gabri\Desktop\Projetos\Unifil\Sistemas Distribuidos\Trabalho Middleware\Tag01\Server\Server\Client\obj\Debug\Client.csproj.CopyComplete
+C:\Users\gabri\Desktop\Projetos\Unifil\Sistemas Distribuidos\Trabalho Middleware\Tag01\Server\Server\Client\obj\Debug\Client.exe
+C:\Users\gabri\Desktop\Projetos\Unifil\Sistemas Distribuidos\Trabalho Middleware\Tag01\Server\Server\Client\obj\Debug\Client.pdb
