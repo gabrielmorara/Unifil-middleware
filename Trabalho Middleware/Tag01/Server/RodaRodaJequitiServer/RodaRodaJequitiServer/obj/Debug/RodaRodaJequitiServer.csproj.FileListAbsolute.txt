@@ -10,3 +10,7 @@ C:\Users\gabri\Desktop\Projetos\Unifil\Sistemas Distribuidos\Trabalho Middleware
 C:\Users\gabri\Desktop\Projetos\Unifil\Sistemas Distribuidos\Trabalho Middleware\Tag01\Server\RodaRodaJequitiServer\RodaRodaJequitiServer\obj\Debug\RodaRodaJequitiServer.csproj.CopyComplete
 C:\Users\gabri\Desktop\Projetos\Unifil\Sistemas Distribuidos\Trabalho Middleware\Tag01\Server\RodaRodaJequitiServer\RodaRodaJequitiServer\obj\Debug\RodaRodaJequitiServer.exe
 C:\Users\gabri\Desktop\Projetos\Unifil\Sistemas Distribuidos\Trabalho Middleware\Tag01\Server\RodaRodaJequitiServer\RodaRodaJequitiServer\obj\Debug\RodaRodaJequitiServer.pdb
+C:\Users\gabri\Desktop\Projetos\Unifil\Sistemas Distribuidos\Trabalho Middleware\Tag01\Server\RodaRodaJequitiServer\RodaRodaJequitiServer\bin\Debug\RodaRodaJequitiServer.exe.manifest
+C:\Users\gabri\Desktop\Projetos\Unifil\Sistemas Distribuidos\Trabalho Middleware\Tag01\Server\RodaRodaJequitiServer\RodaRodaJequitiServer\bin\Debug\RodaRodaJequitiServer.application
+C:\Users\gabri\Desktop\Projetos\Unifil\Sistemas Distribuidos\Trabalho Middleware\Tag01\Server\RodaRodaJequitiServer\RodaRodaJequitiServer\obj\Debug\RodaRodaJequitiServer.exe.manifest
+C:\Users\gabri\Desktop\Projetos\Unifil\Sistemas Distribuidos\Trabalho Middleware\Tag01\Server\RodaRodaJequitiServer\RodaRodaJequitiServer\obj\Debug\RodaRodaJequitiServer.application

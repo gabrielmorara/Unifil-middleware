@@ -22,3 +22,7 @@ C:\Users\gabri\Desktop\Projetos\Unifil\Sistemas Distribuidos\Trabalho Middleware
 C:\Users\gabri\Desktop\Projetos\Unifil\Sistemas Distribuidos\Trabalho Middleware\Tag01\Cliente\RodaRodaJequitiClient\RodaRodaJequitiClient\obj\Debug\RodaRodaJequitiClient.csproj.CopyComplete
 C:\Users\gabri\Desktop\Projetos\Unifil\Sistemas Distribuidos\Trabalho Middleware\Tag01\Cliente\RodaRodaJequitiClient\RodaRodaJequitiClient\obj\Debug\RodaRodaJequitiClient.exe
 C:\Users\gabri\Desktop\Projetos\Unifil\Sistemas Distribuidos\Trabalho Middleware\Tag01\Cliente\RodaRodaJequitiClient\RodaRodaJequitiClient\obj\Debug\RodaRodaJequitiClient.pdb
+C:\Users\gabri\Desktop\Projetos\Unifil\Sistemas Distribuidos\Trabalho Middleware\Tag01\Cliente\RodaRodaJequitiClient\RodaRodaJequitiClient\bin\Debug\RodaRodaJequitiClient.exe.manifest
+C:\Users\gabri\Desktop\Projetos\Unifil\Sistemas Distribuidos\Trabalho Middleware\Tag01\Cliente\RodaRodaJequitiClient\RodaRodaJequitiClient\bin\Debug\RodaRodaJequitiClient.application
+C:\Users\gabri\Desktop\Projetos\Unifil\Sistemas Distribuidos\Trabalho Middleware\Tag01\Cliente\RodaRodaJequitiClient\RodaRodaJequitiClient\obj\Debug\RodaRodaJequitiClient.exe.manifest
+C:\Users\gabri\Desktop\Projetos\Unifil\Sistemas Distribuidos\Trabalho Middleware\Tag01\Cliente\RodaRodaJequitiClient\RodaRodaJequitiClient\obj\Debug\RodaRodaJequitiClient.application
