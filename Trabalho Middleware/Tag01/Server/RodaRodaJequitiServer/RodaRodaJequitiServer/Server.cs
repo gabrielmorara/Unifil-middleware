@@ -99,10 +99,32 @@ namespace RodaRodaJequitiServer
                 case "chute":
                     ProcessaChute(type);
                     break;
+                case "palavra":
+                    ProcessaPalavra(type);
+                    break;
                 default:
                     MsgLog("Erro:" + e.MessageString);
                     break;
             }
+        }
+
+        private void ProcessaPalavra(string[] type)
+        {
+            var player = type[1];
+            var palavra = Convert.ToInt32(type[2]);
+            var palavraChute = type[3];
+
+            if (palavraChute.Equals(secretlistPalavras[palavra]))
+            {
+                var list = "palavra" + "," + player + "," + "acertou" + "," + palavra + "," + palavraChute + "," + 1000;
+                sendToClient(list);
+            }
+            else
+            {
+                var list = "palavra" + "," + player + "," + "errou";
+                sendToClient(list);
+            }
+
         }
 
         private void ProcessaChute(string[] type)
@@ -120,11 +142,9 @@ namespace RodaRodaJequitiServer
             sendToClient("chute" + "," + converterListToString(listPalavrasChute));
             if (calcPontos > 0)
             {
-                System.Threading.Thread.Sleep(1000);
                 sendToClient("puntuacao" + "," + player + "," + calcPontos + ",");
                 valorPontos += valorPontos;
                 sendToClient("pontos" + "," + valorPontos + ",");
-                System.Threading.Thread.Sleep(1000);
                 sendToClient("msg" + "," + " Jogador " + player + " acertou " + (p1 + p2 + p3) + " letra " + letra + ",");
             }
             else
@@ -147,6 +167,7 @@ namespace RodaRodaJequitiServer
 
         public void sendToClient(string msg)
         {
+            System.Threading.Thread.Sleep(500);
             byte[] bytesToSend = ASCIIEncoding.ASCII.GetBytes(msg);
             server.Broadcast(bytesToSend);
         }
