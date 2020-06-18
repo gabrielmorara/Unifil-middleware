@@ -108,7 +108,7 @@ namespace RodaRodaJequitiServer
             Socket socket = (Socket)ar.AsyncState;
             if (socket.Connected)
             {
-                Sendata(socket, "Init" + "," + converterListToString(GerarListpalavrasDefault()));
+                ProccesReceive(socket, ar);
                 int received;
                 try
                 {
@@ -163,6 +163,79 @@ namespace RodaRodaJequitiServer
                 }
             }
             socket.BeginReceive(_buffer, 0, _buffer.Length, SocketFlags.None, new AsyncCallback(ReceiveCallback), socket);
+        }
+
+        private void ProccesReceive(Socket socket, IAsyncResult ar)
+        {
+            var received = socket.EndReceive(ar);
+            byte[] dataBuf = new byte[received];
+            Array.Copy(_buffer, dataBuf, received);
+            string text = Encoding.ASCII.GetString(dataBuf);
+            var type = text.Split(',');
+            switch (type[0])
+            {
+                case "Init":
+                    Iniciar(socket, type);
+                    break;
+                case "chute":
+                    ProcessaChute(socket, type);
+                    break;
+                case "palavra":
+                    ProcessaPalavra(socket, type);
+                    break;
+                default:
+                    break;
+            }
+        }
+        private void ProcessaPalavra(Socket socket, string[] type)
+        {
+            var player = type[1];
+            var palavra = Convert.ToInt32(type[2]);
+            var palavraChute = type[3];
+
+            if (palavraChute.Equals(secretlistPalavras[palavra]))
+            {
+                var list = "palavra" + "," + player + "," + "acertou" + "," + palavra + "," + palavraChute + "," + 1000;
+                Sendata(socket, list);
+            }
+            else
+            {
+                var list = "palavra" + "," + player + "," + "errou";
+                Sendata(socket, list);
+            }
+        }
+
+        public void Iniciar(Socket socket, string[] type)
+        {
+            Sendata(socket, "Init" + "," + converterListToString(GerarListpalavrasDefault()));
+            System.Threading.Thread.Sleep(1000);
+            Sendata(socket, "pontos" + "," + valorPontos);
+        }
+
+        private void ProcessaChute(Socket socket, string[] type)
+        {
+            var player = type[1];
+            var letra = type[2];
+            var pontos = type[3];
+
+            var p1 = secretlistPalavras[0].Split(letra.ToCharArray()).Length - 1;
+            var p2 = secretlistPalavras[1].Split(letra.ToCharArray()).Length - 1;
+            var p3 = secretlistPalavras[2].Split(letra.ToCharArray()).Length - 1;
+
+            var calcPontos = (p1 + p2 + p3) * Convert.ToInt32(valorPontos);
+            listPalavrasChute = VerifyListPalavrasChute(letra.ToCharArray()[0]);
+            Sendata(socket, "chute" + "," + converterListToString(listPalavrasChute));
+            if (calcPontos > 0)
+            {
+                Sendata(socket, "puntuacao" + "," + player + "," + calcPontos + ",");
+                valorPontos += valorPontos;
+                Sendata(socket, "pontos" + "," + valorPontos + ",");
+                Sendata(socket, "msg" + "," + " Jogador " + player + " acertou " + (p1 + p2 + p3) + " letra " + letra + ",");
+            }
+            else
+            {
+                Sendata(socket, "msg" + "," + " Jogador " + player + " nao acertou nenhuma letra " + letra);
+            }
         }
 
         void Sendata(Socket socket, string noidung)

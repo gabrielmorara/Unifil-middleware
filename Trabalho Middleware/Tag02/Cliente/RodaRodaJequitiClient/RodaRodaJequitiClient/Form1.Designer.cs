@@ -80,6 +80,8 @@
             this.groupBox1.Controls.Add(this.label6);
             this.groupBox1.Controls.Add(this.palavra02);
             this.groupBox1.Controls.Add(this.label4);
+            this.groupBox1.Controls.Add(this.palavra01);
+            this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.rb_chat);
             this.groupBox1.Location = new System.Drawing.Point(12, 45);
             this.groupBox1.Name = "groupBox1";
@@ -158,7 +160,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(12, 240);
+            this.label2.Location = new System.Drawing.Point(17, 51);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(58, 13);
             this.label2.TabIndex = 2;
@@ -167,12 +169,11 @@
             // palavra01
             // 
             this.palavra01.AutoSize = true;
-            this.palavra01.Location = new System.Drawing.Point(77, 240);
+            this.palavra01.Location = new System.Drawing.Point(82, 51);
             this.palavra01.Name = "palavra01";
             this.palavra01.Size = new System.Drawing.Size(35, 13);
             this.palavra01.TabIndex = 3;
             this.palavra01.Text = "label3";
-            this.palavra01.Click += new System.EventHandler(this.palavra01_Click);
             // 
             // palavra02
             // 
@@ -220,9 +221,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.txName);
             this.Controls.Add(this.groupBox2);
-            this.Controls.Add(this.palavra01);
             this.Controls.Add(this.txt_text);
-            this.Controls.Add(this.label2);
             this.Controls.Add(this.btnSend);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.statusStrip1);

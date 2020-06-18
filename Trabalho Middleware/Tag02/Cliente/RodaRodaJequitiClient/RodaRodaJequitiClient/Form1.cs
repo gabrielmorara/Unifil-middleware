@@ -40,37 +40,24 @@ namespace RodaRodaJequitiClient
             {
                 case "Init":
                 case "chute":
-                    IniciarJogo(list);
+                    InitProcess(list);
                     break;
-                    //case "pontos":
-                    //    ExibirPontos(list);
-                    //    break;
-                    //case "puntuacao":
-                    //    ExibirPuntuacao(list);
-                    //    break;
-                    //case "palavra":
-                    //    ExibirPalavra(list);
-                    //    break;
-                    //case "msg":
-                    //    ExibirMsg(list);
-                    //    break;
-                    //default:
-                    //    break;
+                default:
+                    break;
             }
         }
 
-        public void IniciarJogo(string[] list)
+        public void InitProcess(string[] list)
         {
             try
             {
                 palavra01.Text = list[1].ToString();
                 palavra02.Text = list[2].ToString();
                 palavra03.Text = list[3].ToString();
-
             }
             catch (Exception e)
             {
-                var x = "";
+                throw;
             }
         }
 
@@ -103,7 +90,6 @@ namespace RodaRodaJequitiClient
                 }
                 catch (SocketException)
                 {
-                    //Console.Clear();
                     lb_stt.Text = ("Connection attempts: " + attempts.ToString());
                 }
             }
@@ -119,7 +105,8 @@ namespace RodaRodaJequitiClient
         {
             if (_clientSocket.Connected)
             {
-                byte[] buffer = Encoding.ASCII.GetBytes(txt_text.Text);
+                var sendChar = "chute" + "," + txt_text.Text;
+                byte[] buffer = Encoding.ASCII.GetBytes(sendChar);
                 _clientSocket.Send(buffer);
                 rb_chat.AppendText("Client: " + txt_text.Text);
             }
@@ -145,11 +132,6 @@ namespace RodaRodaJequitiClient
         }
 
         private void label5_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void palavra01_Click(object sender, EventArgs e)
         {
 
         }
