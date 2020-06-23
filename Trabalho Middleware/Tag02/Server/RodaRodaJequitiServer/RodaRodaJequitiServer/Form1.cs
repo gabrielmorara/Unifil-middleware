@@ -10,19 +10,20 @@ using System.Windows.Forms;
 using System.Net.Sockets;
 using System.Net;
 using RodaRodaJequitiServer.Models;
+using RodaRodaJequitiServer.Services;
 
 namespace RodaRodaJequitiServer
 {
     public partial class Form1 : Form
     {
 
-        private Socket _serverSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+        private static Socket _serverSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
         public List<SocketT2h> __ClientSockets { get; set; }
         private byte[] _buffer = new byte[1024];
-
         public List<String> secretlistPalavras = new List<String>();
         public List<String> listPalavrasChute = new List<String>();
-        public int valorPontos = 100;
+        private readonly Random _random = new Random();
+        public int ValorPontos = 0;
 
         public Form1()
         {
@@ -30,12 +31,19 @@ namespace RodaRodaJequitiServer
             CheckForIllegalCrossThreadCalls = false;
             __ClientSockets = new List<SocketT2h>();
         }
+
+        // Gera valor dos pontos
+        public int RandomNumber(int min, int max)
+        {
+            return _random.Next(min, max);
+        }
+
+        // Inica Servidor
         private void frm_Server_Load(object sender, EventArgs e)
         {
-            secretlistPalavras.Add("ABACAXI");
-            secretlistPalavras.Add("UVA");
-            secretlistPalavras.Add("TESTE");
+            secretlistPalavras = Palavras.SorteiaListaPalavras();
             listPalavrasChute = GerarListpalavrasDefault();
+            ValorPontos = RandomNumber(0, 1000);
             SetupServer();
         }
         private void SetupServer()
@@ -45,15 +53,29 @@ namespace RodaRodaJequitiServer
             _serverSocket.Listen(1);
             _serverSocket.BeginAccept(new AsyncCallback(AppceptCallback), null);
         }
+
+        // Recebbe chamado dos Clientes
         private void AppceptCallback(IAsyncResult ar)
         {
             Socket socket = _serverSocket.EndAccept(ar);
-            __ClientSockets.Add(new SocketT2h(socket));
-            list_Client.Items.Add(socket.RemoteEndPoint.ToString());
-            lb_soluong.Text = "Cliente: " + __ClientSockets.Count.ToString();
-            lb_stt.Text = "Cliente connectado. . .";
+            AddJogador(socket);
             socket.BeginReceive(_buffer, 0, _buffer.Length, SocketFlags.None, new AsyncCallback(ReceiveCallback), socket);
             _serverSocket.BeginAccept(new AsyncCallback(AppceptCallback), null);
+        }
+
+        private void AddJogador(Socket socket)
+        {
+            var x = new SocketT2h(socket);
+            if (!__ClientSockets.Contains(x))
+            {
+                __ClientSockets.Add(x);
+                list_Client.Items.Add(socket.RemoteEndPoint.ToString());
+                if (list_Client.Items.Count == 1) // Inicializa como player 1
+                {
+                    list_Client.SetItemChecked(0, true);
+                }
+            }
+            lb_soluong.Text = "Clientes: " + __ClientSockets.Count.ToString();
         }
 
         private List<string> GerarListpalavrasDefault()
@@ -109,58 +131,6 @@ namespace RodaRodaJequitiServer
             if (socket.Connected)
             {
                 ProccesReceive(socket, ar);
-                int received;
-                try
-                {
-                    received = socket.EndReceive(ar);
-                }
-                catch (Exception)
-                {
-                    for (int i = 0; i < __ClientSockets.Count; i++)
-                    {
-                        if (__ClientSockets[i]._Socket.RemoteEndPoint.ToString().Equals(socket.RemoteEndPoint.ToString()))
-                        {
-                            __ClientSockets.RemoveAt(i);
-                            lb_soluong.Text = __ClientSockets.Count.ToString();
-                        }
-                    }
-                    return;
-                }
-                if (received != 0)
-                {
-                    byte[] dataBuf = new byte[received];
-                    Array.Copy(_buffer, dataBuf, received);
-                    string text = Encoding.ASCII.GetString(dataBuf);
-                    lb_stt.Text = "Text received: " + text;
-
-                    string reponse = string.Empty;
-
-                    for (int i = 0; i < __ClientSockets.Count; i++)
-                    {
-                        if (socket.RemoteEndPoint.ToString().Equals(__ClientSockets[i]._Socket.RemoteEndPoint.ToString()))
-                        {
-                            rich_Text.AppendText("\n" + __ClientSockets[i]._Name + ": " + text);
-                        }
-                    }
-
-                    if (text == "bye")
-                    {
-                        return;
-                    }
-                    reponse = "Server " + text;
-                    Sendata(socket, reponse);
-                }
-                else
-                {
-                    for (int i = 0; i < __ClientSockets.Count; i++)
-                    {
-                        if (__ClientSockets[i]._Socket.RemoteEndPoint.ToString().Equals(socket.RemoteEndPoint.ToString()))
-                        {
-                            __ClientSockets.RemoveAt(i);
-                            lb_soluong.Text = __ClientSockets.Count.ToString();
-                        }
-                    }
-                }
             }
             socket.BeginReceive(_buffer, 0, _buffer.Length, SocketFlags.None, new AsyncCallback(ReceiveCallback), socket);
         }
@@ -184,63 +154,120 @@ namespace RodaRodaJequitiServer
                     ProcessaPalavra(socket, type);
                     break;
                 default:
+                    Iniciar(socket, type);
                     break;
             }
         }
+
         private void ProcessaPalavra(Socket socket, string[] type)
         {
-            var player = type[1];
-            var palavra = Convert.ToInt32(type[2]);
-            var palavraChute = type[3];
+            var palavraChute = type[2];
+            var indice = Convert.ToInt32(type[1]);
 
-            if (palavraChute.Equals(secretlistPalavras[palavra]))
+            if (palavraChute.Equals(secretlistPalavras[indice]))
             {
-                var list = "palavra" + "," + player + "," + "acertou" + "," + palavra + "," + palavraChute + "," + 1000;
-                Sendata(socket, list);
+                var list = "msg" + "," + "Acetou a palavra" + palavraChute;
+                SendataByClient(socket, list);
+                listPalavrasChute[indice] = palavraChute;
+                listPalavrasChute = VerifyListPalavrasChute('@');
+                SendataAll("Init" + "," + converterListToString(listPalavrasChute));
             }
             else
             {
-                var list = "palavra" + "," + player + "," + "errou";
-                Sendata(socket, list);
+                var list = "palavra" + "," + "Errou a palavra";
+                SendataByClient(socket, list);
             }
         }
 
         public void Iniciar(Socket socket, string[] type)
         {
-            Sendata(socket, "Init" + "," + converterListToString(GerarListpalavrasDefault()));
+            SendataByClient(socket, "Init" + "," + converterListToString(GerarListpalavrasDefault()));
             System.Threading.Thread.Sleep(1000);
-            Sendata(socket, "pontos" + "," + valorPontos);
         }
 
         private void ProcessaChute(Socket socket, string[] type)
         {
-            var player = type[1];
-            var letra = type[2];
-            var pontos = type[3];
-
-            var p1 = secretlistPalavras[0].Split(letra.ToCharArray()).Length - 1;
-            var p2 = secretlistPalavras[1].Split(letra.ToCharArray()).Length - 1;
-            var p3 = secretlistPalavras[2].Split(letra.ToCharArray()).Length - 1;
-
-            var calcPontos = (p1 + p2 + p3) * Convert.ToInt32(valorPontos);
-            listPalavrasChute = VerifyListPalavrasChute(letra.ToCharArray()[0]);
-            Sendata(socket, "chute" + "," + converterListToString(listPalavrasChute));
-            if (calcPontos > 0)
+            if (GetJogadorAtual(socket))
             {
-                Sendata(socket, "puntuacao" + "," + player + "," + calcPontos + ",");
-                valorPontos += valorPontos;
-                Sendata(socket, "pontos" + "," + valorPontos + ",");
-                Sendata(socket, "msg" + "," + " Jogador " + player + " acertou " + (p1 + p2 + p3) + " letra " + letra + ",");
+                var letra = type[1];
+
+                var p1 = secretlistPalavras[0].Split(letra.ToCharArray()).Length - 1;
+                var p2 = secretlistPalavras[1].Split(letra.ToCharArray()).Length - 1;
+                var p3 = secretlistPalavras[2].Split(letra.ToCharArray()).Length - 1;
+
+                var calcPontos = (p1 + p2 + p3) * Convert.ToInt32(ValorPontos);
+                listPalavrasChute = VerifyListPalavrasChute(letra.ToCharArray()[0]);
+                SendataAll("Init" + "," + converterListToString(listPalavrasChute));
+                if (calcPontos > 0)
+                {
+                    SendataByClient(socket, "pontos" + "," + calcPontos + ",");
+                    ValorPontos = RandomNumber(0, 1000);
+                    SendataByClient(socket, "msg" + "," + " Acertou " + (p1 + p2 + p3) + " letras " + letra);
+                }
+                else
+                {
+                    SendataByClient(socket, "msg" + "," + "Nao acertou nenhuma letra " + letra);
+                    ProximoJogador(socket);
+                }
             }
             else
             {
-                Sendata(socket, "msg" + "," + " Jogador " + player + " nao acertou nenhuma letra " + letra);
+                SendNaoEsuaVez(socket);
             }
         }
 
-        void Sendata(Socket socket, string noidung)
+        private bool GetJogadorAtual(Socket socket)
         {
-            byte[] data = Encoding.ASCII.GetBytes(noidung);
+            var indice = list_Client.Items.IndexOf(socket.RemoteEndPoint.ToString());
+            return list_Client.GetItemChecked(indice);
+        }
+
+
+        private void SendNaoEsuaVez(Socket socket)
+        {
+            SendataByClient(socket, "msg" + "," + "Aguarde sua vez para jogar");
+        }
+
+        private void ProximoJogador(Socket socket)
+        {
+            var nomejogador = socket.RemoteEndPoint.ToString();
+            var jogadorAtual = list_Client.Items.IndexOf(nomejogador);
+            var novoJogadorAtual = list_Client.Items.IndexOf(nomejogador) + 1;
+            try
+            {
+                list_Client.SetItemChecked(novoJogadorAtual, true); // Altera apra jogador atual
+                list_Client.SetItemChecked(jogadorAtual, false); // Retira flag do Jogador anterior
+            }
+            catch (Exception e)
+            {
+                novoJogadorAtual = 0;
+                list_Client.SetItemChecked(novoJogadorAtual, true);
+                list_Client.SetItemChecked(jogadorAtual, false);
+            }
+            finally
+            {
+                EnviarNoticacaoErro(nomejogador);
+                var nomeProximoJogador = list_Client.Items[novoJogadorAtual].ToString();
+                EnviarNoticicaoSuaVez(nomeProximoJogador);
+            }
+        }
+
+        private void EnviarNoticicaoSuaVez(string nomeProximoJogador)
+        {
+            var socket = __ClientSockets.FirstOrDefault(s => s._Socket.RemoteEndPoint.ToString().Contains(nomeProximoJogador));
+            SendataByClient(socket._Socket, "msg" + "," + "Sua vez de jogar!");
+        }
+
+        private void EnviarNoticacaoErro(string nomejogador)
+        {
+            var socket = __ClientSockets.FirstOrDefault(s => s._Socket.RemoteEndPoint.ToString().Contains(nomejogador));
+            SendataByClient(socket._Socket, "msg" + "," + "Vc errou");
+        }
+
+        void SendataByClient(Socket socket, string msg)
+        {
+            System.Threading.Thread.Sleep(500);
+            byte[] data = Encoding.ASCII.GetBytes(msg);
             socket.BeginSend(data, 0, data.Length, SocketFlags.None, new AsyncCallback(SendCallback), socket);
             _serverSocket.BeginAccept(new AsyncCallback(AppceptCallback), null);
         }
@@ -250,24 +277,30 @@ namespace RodaRodaJequitiServer
             socket.EndSend(AR);
         }
 
-        private void btnSend_Click(object sender, EventArgs e)
+        private void SendataAll(string msg)
         {
-            for (int i = 0; i < list_Client.SelectedItems.Count; i++)
-            {
-                string t = list_Client.SelectedItems[i].ToString();
                 for (int j = 0; j < __ClientSockets.Count; j++)
                 {
                     {
-                        Sendata(__ClientSockets[j]._Socket, txt_Text.Text);
+                        SendataByClient(__ClientSockets[j]._Socket, msg);
+                        AddLog(__ClientSockets[j]._Socket + msg);
                     }
                 }
-            }
-            rich_Text.AppendText("\nServer: " + txt_Text.Text);
         }
 
         private void lb_soluong_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void log_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void AddLog(string msg)
+        {
+            log.Text += msg + '\n';
         }
     }
 }

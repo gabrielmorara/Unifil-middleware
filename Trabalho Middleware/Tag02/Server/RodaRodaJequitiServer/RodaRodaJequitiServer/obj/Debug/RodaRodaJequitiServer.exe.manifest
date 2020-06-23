@@ -42,14 +42,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="RodaRodaJequitiServer.exe" size="16864">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="RodaRodaJequitiServer.exe" size="20960">
       <assemblyIdentity name="RodaRodaJequitiServer" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>0aV6B3a900iCc0Kze+2QwDhlrPPgUUOXFRy6sJRbrlQ=</dsig:DigestValue>
+        <dsig:DigestValue>V3qAT0PbFFZry9l7tjB6ShOehYa+Jy0vQCLsuhcOHLY=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

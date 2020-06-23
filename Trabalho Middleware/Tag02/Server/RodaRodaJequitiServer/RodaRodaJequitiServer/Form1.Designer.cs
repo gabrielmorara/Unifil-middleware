@@ -33,9 +33,8 @@
             this.lb_soluong = new System.Windows.Forms.ToolStripStatusLabel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.list_Client = new System.Windows.Forms.CheckedListBox();
-            this.txt_Text = new System.Windows.Forms.TextBox();
-            this.btnSend = new System.Windows.Forms.Button();
             this.rich_Text = new System.Windows.Forms.RichTextBox();
+            this.log = new System.Windows.Forms.Label();
             this.statusStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -83,23 +82,6 @@
             this.list_Client.Size = new System.Drawing.Size(205, 372);
             this.list_Client.TabIndex = 5;
             // 
-            // txt_Text
-            // 
-            this.txt_Text.Location = new System.Drawing.Point(12, 411);
-            this.txt_Text.Name = "txt_Text";
-            this.txt_Text.Size = new System.Drawing.Size(205, 20);
-            this.txt_Text.TabIndex = 3;
-            // 
-            // btnSend
-            // 
-            this.btnSend.Location = new System.Drawing.Point(229, 409);
-            this.btnSend.Name = "btnSend";
-            this.btnSend.Size = new System.Drawing.Size(75, 23);
-            this.btnSend.TabIndex = 4;
-            this.btnSend.Text = "Enviar";
-            this.btnSend.UseVisualStyleBackColor = true;
-            this.btnSend.Click += new System.EventHandler(this.btnSend_Click);
-            // 
             // rich_Text
             // 
             this.rich_Text.Location = new System.Drawing.Point(229, 28);
@@ -108,14 +90,23 @@
             this.rich_Text.TabIndex = 5;
             this.rich_Text.Text = "";
             // 
+            // log
+            // 
+            this.log.AutoSize = true;
+            this.log.Location = new System.Drawing.Point(239, 31);
+            this.log.Name = "log";
+            this.log.Size = new System.Drawing.Size(21, 13);
+            this.log.TabIndex = 7;
+            this.log.Text = "log";
+            this.log.Click += new System.EventHandler(this.log_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(905, 456);
+            this.Controls.Add(this.log);
             this.Controls.Add(this.rich_Text);
-            this.Controls.Add(this.btnSend);
-            this.Controls.Add(this.txt_Text);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.statusStrip1);
             this.Name = "Form1";
@@ -135,11 +126,10 @@
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripStatusLabel lb_stt;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.TextBox txt_Text;
-        private System.Windows.Forms.Button btnSend;
         private System.Windows.Forms.CheckedListBox list_Client;
         private System.Windows.Forms.ToolStripStatusLabel lb_soluong;
         private System.Windows.Forms.RichTextBox rich_Text;
+        private System.Windows.Forms.Label log;
     }
 }
 

@@ -8,11 +8,12 @@ namespace RodaRodaJequitiClient
 {
     public partial class Form1 : Form
     {
-        private Socket _clientSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+        private static Socket _clientSocket;
         byte[] receivedBuf = new byte[1024];
         public Form1()
         {
             InitializeComponent();
+            _clientSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp); // Inicializa Socket
             CheckForIllegalCrossThreadCalls = false;
         }
 
@@ -21,20 +22,22 @@ namespace RodaRodaJequitiClient
 
         }
 
+        // Recebe dados do server
         private void ReceiveData(IAsyncResult ar)
         {
             Socket socket = (Socket)ar.AsyncState;
             int received = socket.EndReceive(ar);
             byte[] dataBuf = new byte[received];
             Array.Copy(receivedBuf, dataBuf, received);
-            var reewbdfs = Encoding.ASCII.GetString(dataBuf);
-            ProcessResponse(reewbdfs);
+            var response = Encoding.ASCII.GetString(dataBuf);
+            ProcessaResponseServer(response);
             _clientSocket.BeginReceive(receivedBuf, 0, receivedBuf.Length, SocketFlags.None, new AsyncCallback(ReceiveData), _clientSocket);
         }
 
-        private void ProcessResponse(string reewbdfs)
+        // Processa metodos 
+        private void ProcessaResponseServer(string response)
         {
-            var list = reewbdfs.Split(',');
+            var list = response.Split(',');
             var type = list[0];
             switch (type)
             {
@@ -42,9 +45,25 @@ namespace RodaRodaJequitiClient
                 case "chute":
                     InitProcess(list);
                     break;
+                case "msg":
+                    ExibirMsg(list);
+                    break;
+                case "pontos":
+                    ExibirPontos(list);
+                    break;
                 default:
                     break;
             }
+        }
+
+        private void ExibirPontos(string[] list)
+        {
+            pontos.Text = list[1];
+        }
+
+        private void ExibirMsg(string[] list)
+        {
+            log.Text += list[1].ToString() + " \n";
         }
 
         public void InitProcess(string[] list)
@@ -61,23 +80,6 @@ namespace RodaRodaJequitiClient
             }
         }
 
-        private void SendLoop()
-        {
-            while (true)
-            {
-                byte[] receivedBuf = new byte[1024];
-                int rev = _clientSocket.Receive(receivedBuf);
-                if (rev != 0)
-                {
-                    byte[] data = new byte[rev];
-                    Array.Copy(receivedBuf, data, rev);
-                    lb_stt.Text = ("Received: " + Encoding.ASCII.GetString(data));
-                    rb_chat.AppendText("\nServer: " + Encoding.ASCII.GetString(data));
-                }
-                else _clientSocket.Close();
-            }
-        }
-
         private void LoopConnect()
         {
             int attempts = 0;
@@ -90,35 +92,69 @@ namespace RodaRodaJequitiClient
                 }
                 catch (SocketException)
                 {
-                    lb_stt.Text = ("Connection attempts: " + attempts.ToString());
+                    log.Text = ("Erro: " + attempts.ToString());
                 }
             }
-            lb_stt.Text = ("Jogando!");
+            log.Text = ("Jogando!");
+        }
+
+
+        // Evento de jogar
+        private void btnJogar_Click(object sender, EventArgs e)
+        {
+            LoopConnect();
+            _clientSocket.BeginReceive(receivedBuf, 0, receivedBuf.Length, SocketFlags.None, new AsyncCallback(ReceiveData), _clientSocket);
+            byte[] buffer = Encoding.ASCII.GetBytes("@@" + "txtNamePlayer.Text"); // Connect Jogador
+            _clientSocket.Send(buffer);
+            txtNamePlayer.Text = _clientSocket.LocalEndPoint.ToString();
+        }
+
+        // Evento de enviar letra 
+        private void btnLetra_Click(object sender, EventArgs e)
+        {
+            if (_clientSocket.Connected)
+            {
+                var sendChar = "chute" + "," + txtLetra.Text.ToUpper();
+                byte[] buffer = Encoding.ASCII.GetBytes(sendChar);
+                _clientSocket.Send(buffer);
+            }
+        }
+
+        private void EnviarPalavra(string palavra, int indice)
+        {
+            if (_clientSocket.Connected)
+            {
+                var sendChar = "palavra" + "," + indice + "," + palavra.ToUpper();
+                byte[] buffer = Encoding.ASCII.GetBytes(sendChar);
+                _clientSocket.Send(buffer);
+            }
+        }
+
+        private void btnPalavra01_Click(object sender, EventArgs e)
+        {
+            EnviarPalavra(textBox1.Text, 0);
+        }
+
+        private void btnPalavra02_Click(object sender, EventArgs e)
+        {
+            EnviarPalavra(textBox2.Text, 1);
+        }
+
+        private void btnPalavra03_Click(object sender, EventArgs e)
+        {
+            EnviarPalavra(textBox3.Text, 2);
+        }
+
+        // Metodos Gerados pelo form nao utilizados >>
+
+        private void label9_Click(object sender, EventArgs e)
+        {
+
         }
 
         private void groupBox1_Enter(object sender, EventArgs e)
         {
 
-        }
-
-        private void btnSend_Click(object sender, EventArgs e)
-        {
-            if (_clientSocket.Connected)
-            {
-                var sendChar = "chute" + "," + txt_text.Text;
-                byte[] buffer = Encoding.ASCII.GetBytes(sendChar);
-                _clientSocket.Send(buffer);
-                rb_chat.AppendText("Client: " + txt_text.Text);
-            }
-        }
-
-        private void btnConnect_Click(object sender, EventArgs e)
-        {
-            LoopConnect();
-            // SendLoop();
-            _clientSocket.BeginReceive(receivedBuf, 0, receivedBuf.Length, SocketFlags.None, new AsyncCallback(ReceiveData), _clientSocket);
-            byte[] buffer = Encoding.ASCII.GetBytes("@@" + txName.Text);
-            _clientSocket.Send(buffer);
         }
 
         private void label1_Click(object sender, EventArgs e)

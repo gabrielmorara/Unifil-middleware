@@ -28,51 +28,178 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
-            this.lb_stt = new System.Windows.Forms.ToolStripStatusLabel();
-            this.rb_chat = new System.Windows.Forms.RichTextBox();
+            this.pontos = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
+            this.label14 = new System.Windows.Forms.Label();
+            this.btnLetra = new System.Windows.Forms.Button();
+            this.label13 = new System.Windows.Forms.Label();
+            this.txtLetra = new System.Windows.Forms.TextBox();
+            this.btnPalavra03 = new System.Windows.Forms.Button();
+            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.btnPalavra02 = new System.Windows.Forms.Button();
+            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.btnPalavra01 = new System.Windows.Forms.Button();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.log = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.btnSend = new System.Windows.Forms.Button();
-            this.txt_text = new System.Windows.Forms.TextBox();
-            this.listBox1 = new System.Windows.Forms.ListBox();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.txName = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.btnConnect = new System.Windows.Forms.Button();
-            this.label2 = new System.Windows.Forms.Label();
-            this.palavra01 = new System.Windows.Forms.Label();
-            this.palavra02 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
             this.palavra03 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
-            this.statusStrip1.SuspendLayout();
+            this.palavra02 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.palavra01 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.rb_chat = new System.Windows.Forms.RichTextBox();
+            this.btnJogar = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
+            this.txtNamePlayer = new System.Windows.Forms.TextBox();
+            this.groupBox3.SuspendLayout();
             this.groupBox1.SuspendLayout();
-            this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
-            // statusStrip1
+            // pontos
             // 
-            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.lb_stt});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 360);
-            this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(522, 22);
-            this.statusStrip1.TabIndex = 0;
-            this.statusStrip1.Text = "statusStrip1";
+            this.pontos.AutoSize = true;
+            this.pontos.Location = new System.Drawing.Point(162, 214);
+            this.pontos.Name = "pontos";
+            this.pontos.Size = new System.Drawing.Size(13, 13);
+            this.pontos.TabIndex = 49;
+            this.pontos.Text = "0";
             // 
-            // lb_stt
+            // label3
             // 
-            this.lb_stt.Name = "lb_stt";
-            this.lb_stt.Size = new System.Drawing.Size(0, 17);
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(112, 214);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(43, 13);
+            this.label3.TabIndex = 48;
+            this.label3.Text = "Pontos:";
             // 
-            // rb_chat
+            // label10
             // 
-            this.rb_chat.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.rb_chat.Location = new System.Drawing.Point(3, 16);
-            this.rb_chat.Name = "rb_chat";
-            this.rb_chat.Size = new System.Drawing.Size(306, 161);
-            this.rb_chat.TabIndex = 1;
-            this.rb_chat.Text = "";
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(48, 371);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(58, 13);
+            this.label10.TabIndex = 47;
+            this.label10.Text = "Palavra03:";
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(49, 329);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(58, 13);
+            this.label11.TabIndex = 46;
+            this.label11.Text = "Palavra02:";
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(48, 285);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(58, 13);
+            this.label14.TabIndex = 45;
+            this.label14.Text = "Palavra01:";
+            // 
+            // btnLetra
+            // 
+            this.btnLetra.Location = new System.Drawing.Point(202, 253);
+            this.btnLetra.Name = "btnLetra";
+            this.btnLetra.Size = new System.Drawing.Size(75, 23);
+            this.btnLetra.TabIndex = 44;
+            this.btnLetra.Text = "Enviar";
+            this.btnLetra.UseVisualStyleBackColor = true;
+            this.btnLetra.Click += new System.EventHandler(this.btnLetra_Click);
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(73, 256);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(34, 13);
+            this.label13.TabIndex = 43;
+            this.label13.Text = "Letra:";
+            // 
+            // txtLetra
+            // 
+            this.txtLetra.Location = new System.Drawing.Point(113, 253);
+            this.txtLetra.Name = "txtLetra";
+            this.txtLetra.Size = new System.Drawing.Size(83, 20);
+            this.txtLetra.TabIndex = 42;
+            // 
+            // btnPalavra03
+            // 
+            this.btnPalavra03.Location = new System.Drawing.Point(294, 362);
+            this.btnPalavra03.Name = "btnPalavra03";
+            this.btnPalavra03.Size = new System.Drawing.Size(75, 23);
+            this.btnPalavra03.TabIndex = 41;
+            this.btnPalavra03.Text = "Enviar";
+            this.btnPalavra03.UseVisualStyleBackColor = true;
+            this.btnPalavra03.Click += new System.EventHandler(this.btnPalavra03_Click);
+            // 
+            // textBox3
+            // 
+            this.textBox3.Location = new System.Drawing.Point(112, 365);
+            this.textBox3.Name = "textBox3";
+            this.textBox3.Size = new System.Drawing.Size(172, 20);
+            this.textBox3.TabIndex = 40;
+            // 
+            // btnPalavra02
+            // 
+            this.btnPalavra02.Location = new System.Drawing.Point(295, 319);
+            this.btnPalavra02.Name = "btnPalavra02";
+            this.btnPalavra02.Size = new System.Drawing.Size(75, 23);
+            this.btnPalavra02.TabIndex = 39;
+            this.btnPalavra02.Text = "Enviar";
+            this.btnPalavra02.UseVisualStyleBackColor = true;
+            this.btnPalavra02.Click += new System.EventHandler(this.btnPalavra02_Click);
+            // 
+            // textBox2
+            // 
+            this.textBox2.Location = new System.Drawing.Point(113, 322);
+            this.textBox2.Name = "textBox2";
+            this.textBox2.Size = new System.Drawing.Size(172, 20);
+            this.textBox2.TabIndex = 38;
+            // 
+            // btnPalavra01
+            // 
+            this.btnPalavra01.Location = new System.Drawing.Point(294, 279);
+            this.btnPalavra01.Name = "btnPalavra01";
+            this.btnPalavra01.Size = new System.Drawing.Size(75, 23);
+            this.btnPalavra01.TabIndex = 37;
+            this.btnPalavra01.Text = "Enviar";
+            this.btnPalavra01.UseVisualStyleBackColor = true;
+            this.btnPalavra01.Click += new System.EventHandler(this.btnPalavra01_Click);
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(112, 282);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(172, 20);
+            this.textBox1.TabIndex = 36;
+            // 
+            // groupBox3
+            // 
+            this.groupBox3.Controls.Add(this.log);
+            this.groupBox3.Location = new System.Drawing.Point(294, 27);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(251, 180);
+            this.groupBox3.TabIndex = 35;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "Mensagens";
+            // 
+            // log
+            // 
+            this.log.AutoSize = true;
+            this.log.Location = new System.Drawing.Point(6, 16);
+            this.log.Name = "log";
+            this.log.Size = new System.Drawing.Size(21, 13);
+            this.log.TabIndex = 3;
+            this.log.Text = "log";
+            this.log.Click += new System.EventHandler(this.label9_Click);
             // 
             // groupBox1
             // 
@@ -83,97 +210,30 @@
             this.groupBox1.Controls.Add(this.palavra01);
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.rb_chat);
-            this.groupBox1.Location = new System.Drawing.Point(12, 45);
+            this.groupBox1.Location = new System.Drawing.Point(74, 27);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(312, 180);
-            this.groupBox1.TabIndex = 2;
+            this.groupBox1.Size = new System.Drawing.Size(210, 180);
+            this.groupBox1.TabIndex = 34;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "JOGO";
-            this.groupBox1.Enter += new System.EventHandler(this.groupBox1_Enter);
             // 
-            // btnSend
+            // palavra03
             // 
-            this.btnSend.Location = new System.Drawing.Point(392, 334);
-            this.btnSend.Name = "btnSend";
-            this.btnSend.Size = new System.Drawing.Size(103, 23);
-            this.btnSend.TabIndex = 3;
-            this.btnSend.Text = "Send";
-            this.btnSend.UseVisualStyleBackColor = true;
-            this.btnSend.Click += new System.EventHandler(this.btnSend_Click);
+            this.palavra03.AutoSize = true;
+            this.palavra03.Location = new System.Drawing.Point(82, 123);
+            this.palavra03.Name = "palavra03";
+            this.palavra03.Size = new System.Drawing.Size(54, 13);
+            this.palavra03.TabIndex = 7;
+            this.palavra03.Text = "palavra03";
             // 
-            // txt_text
+            // label6
             // 
-            this.txt_text.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txt_text.Location = new System.Drawing.Point(0, 337);
-            this.txt_text.Name = "txt_text";
-            this.txt_text.Size = new System.Drawing.Size(386, 20);
-            this.txt_text.TabIndex = 5;
-            // 
-            // listBox1
-            // 
-            this.listBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.Location = new System.Drawing.Point(3, 16);
-            this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(159, 297);
-            this.listBox1.TabIndex = 6;
-            this.listBox1.SelectedIndexChanged += new System.EventHandler(this.listBox1_SelectedIndexChanged);
-            // 
-            // groupBox2
-            // 
-            this.groupBox2.Controls.Add(this.listBox1);
-            this.groupBox2.Location = new System.Drawing.Point(330, 12);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(165, 316);
-            this.groupBox2.TabIndex = 2;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Jogadores";
-            // 
-            // txName
-            // 
-            this.txName.Location = new System.Drawing.Point(70, 19);
-            this.txName.Name = "txName";
-            this.txName.Size = new System.Drawing.Size(172, 20);
-            this.txName.TabIndex = 6;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(26, 22);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(38, 13);
-            this.label1.TabIndex = 7;
-            this.label1.Text = "Nome:";
-            this.label1.Click += new System.EventHandler(this.label1_Click);
-            // 
-            // btnConnect
-            // 
-            this.btnConnect.Location = new System.Drawing.Point(252, 16);
-            this.btnConnect.Name = "btnConnect";
-            this.btnConnect.Size = new System.Drawing.Size(75, 23);
-            this.btnConnect.TabIndex = 8;
-            this.btnConnect.Text = "Jogar";
-            this.btnConnect.UseVisualStyleBackColor = true;
-            this.btnConnect.Click += new System.EventHandler(this.btnConnect_Click);
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(17, 51);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(58, 13);
-            this.label2.TabIndex = 2;
-            this.label2.Text = "Palavra01:";
-            // 
-            // palavra01
-            // 
-            this.palavra01.AutoSize = true;
-            this.palavra01.Location = new System.Drawing.Point(82, 51);
-            this.palavra01.Name = "palavra01";
-            this.palavra01.Size = new System.Drawing.Size(35, 13);
-            this.palavra01.TabIndex = 3;
-            this.palavra01.Text = "label3";
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(17, 123);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(58, 13);
+            this.label6.TabIndex = 6;
+            this.label6.Text = "Palavra03:";
             // 
             // palavra02
             // 
@@ -193,47 +253,91 @@
             this.label4.TabIndex = 4;
             this.label4.Text = "Palavra02:";
             // 
-            // palavra03
+            // palavra01
             // 
-            this.palavra03.AutoSize = true;
-            this.palavra03.Location = new System.Drawing.Point(82, 123);
-            this.palavra03.Name = "palavra03";
-            this.palavra03.Size = new System.Drawing.Size(54, 13);
-            this.palavra03.TabIndex = 7;
-            this.palavra03.Text = "palavra03";
-            this.palavra03.Click += new System.EventHandler(this.label5_Click);
+            this.palavra01.AutoSize = true;
+            this.palavra01.Location = new System.Drawing.Point(82, 51);
+            this.palavra01.Name = "palavra01";
+            this.palavra01.Size = new System.Drawing.Size(35, 13);
+            this.palavra01.TabIndex = 3;
+            this.palavra01.Text = "label3";
             // 
-            // label6
+            // label2
             // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(17, 123);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(58, 13);
-            this.label6.TabIndex = 6;
-            this.label6.Text = "Palavra03:";
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(17, 51);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(58, 13);
+            this.label2.TabIndex = 2;
+            this.label2.Text = "Palavra01:";
+            // 
+            // rb_chat
+            // 
+            this.rb_chat.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.rb_chat.Location = new System.Drawing.Point(3, 16);
+            this.rb_chat.Name = "rb_chat";
+            this.rb_chat.Size = new System.Drawing.Size(204, 161);
+            this.rb_chat.TabIndex = 1;
+            this.rb_chat.Text = "";
+            // 
+            // btnJogar
+            // 
+            this.btnJogar.Location = new System.Drawing.Point(294, 1);
+            this.btnJogar.Name = "btnJogar";
+            this.btnJogar.Size = new System.Drawing.Size(75, 23);
+            this.btnJogar.TabIndex = 33;
+            this.btnJogar.Text = "Jogar";
+            this.btnJogar.UseVisualStyleBackColor = true;
+            this.btnJogar.Click += new System.EventHandler(this.btnJogar_Click);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(68, 4);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(38, 13);
+            this.label1.TabIndex = 32;
+            this.label1.Text = "Nome:";
+            // 
+            // txtNamePlayer
+            // 
+            this.txtNamePlayer.Location = new System.Drawing.Point(112, 1);
+            this.txtNamePlayer.Name = "txtNamePlayer";
+            this.txtNamePlayer.Size = new System.Drawing.Size(172, 20);
+            this.txtNamePlayer.TabIndex = 31;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(522, 382);
-            this.Controls.Add(this.btnConnect);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.txName);
-            this.Controls.Add(this.groupBox2);
-            this.Controls.Add(this.txt_text);
-            this.Controls.Add(this.btnSend);
+            this.ClientSize = new System.Drawing.Size(557, 390);
+            this.Controls.Add(this.pontos);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.label10);
+            this.Controls.Add(this.label11);
+            this.Controls.Add(this.label14);
+            this.Controls.Add(this.btnLetra);
+            this.Controls.Add(this.label13);
+            this.Controls.Add(this.txtLetra);
+            this.Controls.Add(this.btnPalavra03);
+            this.Controls.Add(this.textBox3);
+            this.Controls.Add(this.btnPalavra02);
+            this.Controls.Add(this.textBox2);
+            this.Controls.Add(this.btnPalavra01);
+            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.statusStrip1);
+            this.Controls.Add(this.btnJogar);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.txtNamePlayer);
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Client";
             this.Load += new System.EventHandler(this.Form1_Load);
-            this.statusStrip1.ResumeLayout(false);
-            this.statusStrip1.PerformLayout();
+            this.groupBox3.ResumeLayout(false);
+            this.groupBox3.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
-            this.groupBox2.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -241,23 +345,33 @@
 
         #endregion
 
-        private System.Windows.Forms.StatusStrip statusStrip1;
-        private System.Windows.Forms.ToolStripStatusLabel lb_stt;
-        private System.Windows.Forms.RichTextBox rb_chat;
+        private System.Windows.Forms.Label pontos;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.Button btnLetra;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.TextBox txtLetra;
+        private System.Windows.Forms.Button btnPalavra03;
+        private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.Button btnPalavra02;
+        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.Button btnPalavra01;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.Label log;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.Button btnSend;
-        private System.Windows.Forms.TextBox txt_text;
-        private System.Windows.Forms.ListBox listBox1;
-        private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.TextBox txName;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button btnConnect;
-        private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label palavra03;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label palavra02;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label palavra01;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.RichTextBox rb_chat;
+        private System.Windows.Forms.Button btnJogar;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TextBox txtNamePlayer;
     }
 }
 
