@@ -42,8 +42,9 @@ O jogador atual e representado pela list_client com o checkbox marcado, porem o 
 
 ![alt text](https://github.com/gabrielmorara/Unifil-middleware/blob/master/Trabalho%20Middleware/Tag02/IMG/clientes.png)
 
-Para cada jogador é necessário executar uma instância do cliente, pois esta etapa pode ter mais de um jogador(processo)
-Para começar a jogar basta clicar no botão "Jogar", assim já é fornecido um IP remoto para o acesso ao servidor, como destacado em vermelho na imagem acima.
+* Para cada jogador é necessário executar uma instância do cliente, pois esta etapa pode ter mais de um jogador(processo).
+
+* Para começar a jogar basta clicar no botão "Jogar", assim já é fornecido um IP remoto para o acesso ao servidor, como destacado em vermelho na imagem acima.
 
 # Tecnologias Utilizadas
 * Linguagem de Programação: C#
