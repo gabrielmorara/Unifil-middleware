@@ -80,7 +80,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Models\TipoMensagem.cs" />
-    <Compile Include="Services\Palavras.cs" />
+    <Compile Include="Services\PalavrasServices.cs" />
     <Compile Include="Services\SendClient.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>

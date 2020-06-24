@@ -86,27 +86,6 @@ namespace RodaRodaJequitiClient
             }
         }
 
-        private void groupBox2_Enter(object sender, EventArgs e)
-        {
-
-        }
-
-
-        private void txName_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label13_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
         private void btnJogar_Click(object sender, EventArgs e)
         {
             nome = txtNamePlayer.Text.ToUpper();
@@ -147,34 +126,20 @@ namespace RodaRodaJequitiClient
             return;
         }
 
-        private void palavra01_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void palavra02_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void palavra03_Click(object sender, EventArgs e)
-        {
-
-        }
-
+        // Envia letras
         private void btnLetra_Click(object sender, EventArgs e)
         {
             var msg = new TipoMensagem();
             msg.Type = "chuteletra";
             var letra = new ChuteLetra();
             letra.Nomejogador = nome;
-            letra.Letra = txtLetra.Text;
+            letra.Letra = txtLetra.Text.ToUpper();
             msg.chuteLetra = letra;
             var serializeObject = JsonConvert.SerializeObject(msg);
             SendServer.PostQueue(serializeObject);
         }
 
-
+        // Envia palavras
         private void EnviarPalavra(ChutePalavra palavra, int indice)
         {
             var msg = new TipoMensagem();
@@ -193,11 +158,6 @@ namespace RodaRodaJequitiClient
             EnviarPalavra(palavra, 0);
         }
 
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
         private void btnPalavra02_Click(object sender, EventArgs e)
         {
             var palavra = new ChutePalavra();
@@ -212,12 +172,53 @@ namespace RodaRodaJequitiClient
             EnviarPalavra(palavra, 2);
         }
 
+        private void palavra01_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void palavra02_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void palavra03_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
         private void label9_Click(object sender, EventArgs e)
         {
 
         }
 
         private void label3_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void groupBox2_Enter(object sender, EventArgs e)
+        {
+
+        }
+
+
+        private void txName_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label13_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
 
         }

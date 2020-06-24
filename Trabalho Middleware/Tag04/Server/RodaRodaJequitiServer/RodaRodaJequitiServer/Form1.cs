@@ -10,6 +10,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Reflection;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -24,29 +25,36 @@ namespace RodaRodaJequitiServer
         public List<String> listaSecretaPalavrasCripto = new List<String>();
         public List<Jogador> listaJogadores = new List<Jogador>();
         private readonly Random _random = new Random();
-        public int ValorPontos = 0;
+        public int ValorPontosLetras = 0;
+        public int ValorPontosPlavras = 0;
         public Form1()
         {
             InitializeComponent();
             timer1.Start();
-            listaSecretaPalavras = Palavras.SorteiaListaPalavras();
-            listaSecretaPalavrasCripto = GerarListpalavrasCripto();
-            ValorPontos = RandomNumber(0, 1000);
         }
 
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            listaSecretaPalavras = PalavrasServices.SorteiaListaPalavras();
+            listaSecretaPalavrasCripto = GerarListpalavrasCripto();
+            AtualizaPontos();
+        }
 
-        public void VerificaNovasPalavras()
+        // Verifica se a rodada acabou
+        public void IsFimRodada()
         {
             var x1 = string.Join(",", listaSecretaPalavrasCripto.ToArray()).Contains("_");
             if (!x1)
             {
-                listaSecretaPalavras = Palavras.SorteiaListaPalavras();
+                InserirLog("Fim da Rodada");
+                listaSecretaPalavras = PalavrasServices.SorteiaListaPalavras();
                 listaSecretaPalavrasCripto = GerarListpalavrasCripto();
-                IniciarNovaRodada();
+                InitRodada();
             }
         }
 
-        private void IniciarNovaRodada()
+        // Inicia uma nova rodada
+        private void InitRodada()
         {
             foreach (var x in list_Client.Items)
             {
@@ -59,20 +67,12 @@ namespace RodaRodaJequitiServer
                 EnviarMensagem(x.ToString(), "Nova Rodada comecando!");
                 SendClient.PostQueue(x.ToString(), serializeObject);
             }
+            InserirLog("Nova Rodada comecando!");
         }
 
         public int RandomNumber(int min, int max)
         {
             return _random.Next(min, max);
-        }
-        public void StartServer()
-        {
-
-        }
-
-        private void Form1_Load(object sender, EventArgs e)
-        {
-
         }
 
         private List<string> GerarListpalavrasCripto()
@@ -92,16 +92,6 @@ namespace RodaRodaJequitiServer
             return list;
         }
 
-
-        private void groupBox1_Enter(object sender, EventArgs e)
-        {
-
-        }
-
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-        }
-
         public void Processa(string message)
         {
             var msg = JsonConvert.DeserializeObject<TipoMensagem>(message);
@@ -111,16 +101,17 @@ namespace RodaRodaJequitiServer
                     AddJogador(msg.jogador);
                     break;
                 case "chuteletra":
-                    verificaChute(msg.chuteLetra);
+                    ProcessarChute(msg.chuteLetra);
                     break;
                 case "chutepalavra":
-                    verificaPalavra(msg.chutePalavra);
+                    ProcessarPalavra(msg.chutePalavra);
                     break;
                 case "exit":
                     RemoveJogador(msg.exit);
                     break;
             }
-            VerificaNovasPalavras();
+            AtualizaPlacar();
+            IsFimRodada();
         }
 
         private void RemoveJogador(Exit exit)
@@ -133,11 +124,11 @@ namespace RodaRodaJequitiServer
             }
             catch (Exception e)
             {
-
+                throw;
             }
         }
 
-        private void verificaPalavra(ChutePalavra chutePalavra)
+        private void ProcessarPalavra(ChutePalavra chutePalavra)
         {
             if (GetJogadorAtual(chutePalavra.Nomejogador))
             {
@@ -155,8 +146,8 @@ namespace RodaRodaJequitiServer
                         var serializeObject = JsonConvert.SerializeObject(msg);
                         SendClient.PostQueue(x.ToString(), serializeObject);
                     }
-                    var calcPontos = 10 * Convert.ToInt32(ValorPontos);
-                    listaJogadores.FirstOrDefault(s => s.Nomejogador.Equals(chutePalavra.Nomejogador)).Pontos += calcPontos;
+                    AtualizaPontos();
+                    listaJogadores.FirstOrDefault(s => s.Nomejogador.Equals(chutePalavra.Nomejogador)).Pontos += ValorPontosPlavras;
                     var msg2 = new TipoMensagem();
                     msg2.Type = "pontos";
                     msg2.jogador = listaJogadores.FirstOrDefault(s => s.Nomejogador.Equals(chutePalavra.Nomejogador));
@@ -166,7 +157,7 @@ namespace RodaRodaJequitiServer
                 }
                 else
                 {
-                    proximoJogador(chutePalavra.Nomejogador);
+                    ProximoJogador(chutePalavra.Nomejogador);
                 }
             }
             else
@@ -175,7 +166,7 @@ namespace RodaRodaJequitiServer
             }
         }
 
-        private void verificaChute(ChuteLetra chuteLetra)
+        private void ProcessarChute(ChuteLetra chuteLetra)
         {
             if (GetJogadorAtual(chuteLetra.Nomejogador))
             {
@@ -185,9 +176,8 @@ namespace RodaRodaJequitiServer
                 var p2 = listaSecretaPalavras[1].Split(letra.ToCharArray()).Length - 1;
                 var p3 = listaSecretaPalavras[2].Split(letra.ToCharArray()).Length - 1;
                 var quantidadeLetra = p1 + p2 + p3;
-                var calcPontos = quantidadeLetra * Convert.ToInt32(ValorPontos);
-                ValorPontos = RandomNumber(0, 1000);
-                pontos.Text = ValorPontos.ToString();
+                var calcPontos = quantidadeLetra * Convert.ToInt32(ValorPontosLetras);
+                AtualizaPontos();
                 listaSecretaPalavrasCripto = VerifyListPalavrasChute(letra.ToCharArray()[0]);
                 var list = list_Client.Items;
                 foreach (var x in list)
@@ -202,7 +192,7 @@ namespace RodaRodaJequitiServer
                 }
                 if (calcPontos == 0)
                 {
-                    proximoJogador(chuteLetra.Nomejogador);
+                    ProximoJogador(chuteLetra.Nomejogador);
                 }
                 else
                 {
@@ -239,7 +229,7 @@ namespace RodaRodaJequitiServer
         }
 
 
-        private void proximoJogador(string nomejogador)
+        private void ProximoJogador(string nomejogador)
         {
             var jogadorAtual = list_Client.Items.IndexOf(nomejogador);
             var novoJogadorAtual = list_Client.Items.IndexOf(nomejogador) + 1;
@@ -299,9 +289,9 @@ namespace RodaRodaJequitiServer
         {
             var verificaJogador = listaJogadores.FirstOrDefault(s => s.Nomejogador.Equals(jogador.Nomejogador));
 
-            if (verificaJogador == null)
+            if (verificaJogador == null) // verifica se o jogador ja existi
             {
-                if (list_Client.Items.Count == 0)
+                if (list_Client.Items.Count == 0) // Primeiro jogador
                 {
                     list_Client.Items.Add(jogador.Nomejogador);
                     var msg = new TipoMensagem();
@@ -324,6 +314,7 @@ namespace RodaRodaJequitiServer
                     msg.listaPalavras = list;
                     var serializeObject = JsonConvert.SerializeObject(msg);
                     SendClient.PostQueue(jogador.Nomejogador, serializeObject);
+                    sendNaoEsuaVez(jogador.Nomejogador);
                 }
                 var jogadorNew = new Jogador();
                 jogadorNew.Nomejogador = jogador.Nomejogador;
@@ -333,8 +324,8 @@ namespace RodaRodaJequitiServer
             }
             else
             {
-                var dsfds = list_Client.Items.IndexOf(verificaJogador.Nomejogador);
-                if (dsfds == -1)
+                var indice = list_Client.Items.IndexOf(verificaJogador.Nomejogador);
+                if (indice == -1)
                 {
                     list_Client.Items.Add(verificaJogador.Nomejogador);
                 }
@@ -350,10 +341,10 @@ namespace RodaRodaJequitiServer
                 msg2.jogador = listaJogadores.FirstOrDefault(s => s.Nomejogador.Equals(verificaJogador.Nomejogador));
                 var serializeObject2 = JsonConvert.SerializeObject(msg);
                 SendClient.PostQueue(verificaJogador.Nomejogador, serializeObject2);
+                sendNaoEsuaVez(jogador.Nomejogador);
             }
+            InserirLog("Jogador " + jogador.Nomejogador + " adicionado");
         }
-
-
 
         public List<string> VerifyListPalavrasChute(char letra)
         {
@@ -379,10 +370,10 @@ namespace RodaRodaJequitiServer
             return list;
         }
 
+        // Cron
         private void timer1_Tick(object sender, EventArgs e)
         {
             this.Refresh();
-
             var factory = new ConnectionFactory() { HostName = "localhost" };
             using (var connection = factory.CreateConnection())
             using (var channel = connection.CreateModel())
@@ -398,16 +389,36 @@ namespace RodaRodaJequitiServer
                 {
                     var message = System.Text.Encoding.UTF8.GetString(data.Body.ToArray());
                     Processa(message);
-                    //var consumer = new EventingBasicConsumer(channel);
-
-                    //channel.BasicConsume(queue: "SendServer",
-                    //                     autoAck: true,
-                    //                     consumer: consumer);
                 }
             }
-
         }
 
+        // Controla placar
+        private void AtualizaPlacar()
+        {
+            listPlacar.Items.Clear();
+            foreach (var jogador in listaJogadores.OrderByDescending(s => s.Pontos))
+            {
+                listPlacar.Items.Add("" + jogador.Nomejogador + "-" + jogador.Pontos);
+            }
+            InserirLog("Placar Atualizado");
+        }
+
+        private void AtualizaPontos()
+        {
+            ValorPontosLetras = RandomNumber(0, 1000);
+            pontos.Text = ValorPontosLetras.ToString();
+
+            ValorPontosPlavras = ValorPontosLetras * 10;
+            pontosPalavra.Text = ValorPontosPlavras.ToString();
+        }
+
+        private void InserirLog(string log)
+        {
+            textLog.AppendText(DateTime.Now.ToString() + "-" + log + Environment.NewLine);
+        }
+
+        // Metodos Gerados pelo Form
         private void list_Client_SelectedIndexChanged(object sender, EventArgs e)
         {
 
@@ -423,6 +434,45 @@ namespace RodaRodaJequitiServer
         }
 
         private void label2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label4_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label3_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void checkedListBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void groupBox1_Enter(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+        }
+
+        private void listPlacar_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textLog_TextChanged(object sender, EventArgs e)
         {
 
         }

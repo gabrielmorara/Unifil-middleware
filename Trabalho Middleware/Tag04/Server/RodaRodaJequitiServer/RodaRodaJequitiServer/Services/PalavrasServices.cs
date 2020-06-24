@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace RodaRodaJequitiServer.Services
 {
-    public static class Palavras
+    public static class PalavrasServices
     {
         public static List<String> listaPalavras = new List<String>();
         public static List<String> SorteiaListaPalavras()
