@@ -19,7 +19,7 @@ Para o cliente e servidor executar os mesmos passos:
 * Instalar os .exe RodaRodaJequitiServer e RodaRodaJequitiClient dentro da pasta "Executaveis"
 
 # Servidor
-* Apos executar o RodaRodaJequitiServer, a seguinte tela devera aparecer
+* Apos executar o RodaRodaJequitiServer, a seguinte tela deverá aparecer
 
 ![alt text](https://github.com/gabrielmorara/Unifil-middleware/blob/master/Trabalho%20Middleware/Tag01/IMG/server.png)
 
@@ -32,10 +32,10 @@ O servidor é responsável por:
 * Apresentar toda interação feita com o cliente no Form
 
 # Cliente
-* apos executar o RodaRodaJequitiClient, a seguinte tela devera aparecer
+* apos executar o RodaRodaJequitiClient, a seguinte tela deverá aparecer
 ![alt text](https://github.com/gabrielmorara/Unifil-middleware/blob/master/Trabalho%20Middleware/Tag01/IMG/client.png)
 
-O cliente possui um único processo que engloba 3 jogadores no mesmo Form, sendo necessário passar o mouse para o próximo, nesta etapa somente possui uma rodada com 3 palavras, apos finalizar é necessário executar novamente o cliente para jogar de novo.
+O cliente possui um único processo que engloba 3 jogadores no mesmo Form, sendo necessário passar o mouse para o próximo, nesta etapa somente possui uma rodada com 3 palavras, após finalizar é necessário executar novamente o cliente para jogar de novo.
 
 * O jogador atual é indicado pelo label "Vez do jogador "
 
