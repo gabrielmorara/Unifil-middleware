@@ -16,9 +16,9 @@ Esta etapa do projeto foi implementada utilizando RPC para a comunicação entre
 * Executar o projeto "ThriftS.Test.Client" e iniciar uma nova instância(Executar uma instância por jogador)
 
 * A maior parte do código esta nas classes:
-* Tag03\RodaRodaJequitiRPC\ThriftS.Test.Client\Form1.cs -> Contem a implementação da interface do cliente e as chamadas RPC
-* Tag03\RodaRodaJequitiRPC\ThriftS.Test.Server\RodaRodaServico -> Contem a implementação dos métodos do contrato RPC
-* Tag03\RodaRodaJequitiRPC\ThriftS.Test.Contract\RodaRoda.cs -> Contem o contrato entre ambas partes.
+  * Tag03\RodaRodaJequitiRPC\ThriftS.Test.Client\Form1.cs -> Contem a implementação da interface do cliente e as chamadas RPC
+  * Tag03\RodaRodaJequitiRPC\ThriftS.Test.Server\RodaRodaServico -> Contem a implementação dos métodos do contrato RPC
+  * Tag03\RodaRodaJequitiRPC\ThriftS.Test.Contract\RodaRoda.cs -> Contem o contrato entre ambas partes.
 
 # Servidor
 * Apos executar o Servidor, a aplicação de console deve carregar:
