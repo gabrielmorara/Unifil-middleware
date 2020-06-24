@@ -175,7 +175,7 @@
             this.groupBox3.Controls.Add(this.label9);
             this.groupBox3.Location = new System.Drawing.Point(251, 35);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(181, 180);
+            this.groupBox3.Size = new System.Drawing.Size(204, 180);
             this.groupBox3.TabIndex = 13;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Mensagens";
@@ -324,7 +324,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(444, 405);
+            this.ClientSize = new System.Drawing.Size(467, 405);
             this.Controls.Add(this.pontos);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label10);
@@ -346,8 +346,8 @@
             this.Controls.Add(this.txtNamePlayer);
             this.Name = "Form1";
             this.Text = "Form1";
-            this.Load += new System.EventHandler(this.Form1_Load);
             this.Closed += new System.EventHandler(this.Form1_Closing);
+            this.Load += new System.EventHandler(this.Form1_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox3.ResumeLayout(false);

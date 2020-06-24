@@ -162,7 +162,7 @@ namespace RodaRodaJequitiServer
             }
             else
             {
-                sendNaoEsuaVez(chutePalavra.Nomejogador);
+                IsNotAtualPlayer(chutePalavra.Nomejogador);
             }
         }
 
@@ -207,11 +207,11 @@ namespace RodaRodaJequitiServer
             }
             else
             {
-                sendNaoEsuaVez(chuteLetra.Nomejogador);
+                IsNotAtualPlayer(chuteLetra.Nomejogador);
             }
         }
 
-        private void sendNaoEsuaVez(string nomejogador)
+        private void IsNotAtualPlayer(string nomejogador)
         {
             var msg = new TipoMensagem();
             msg.Type = "msg";
@@ -314,7 +314,7 @@ namespace RodaRodaJequitiServer
                     msg.listaPalavras = list;
                     var serializeObject = JsonConvert.SerializeObject(msg);
                     SendClient.PostQueue(jogador.Nomejogador, serializeObject);
-                    sendNaoEsuaVez(jogador.Nomejogador);
+                    IsNotAtualPlayer(jogador.Nomejogador);
                 }
                 var jogadorNew = new Jogador();
                 jogadorNew.Nomejogador = jogador.Nomejogador;
@@ -334,14 +334,15 @@ namespace RodaRodaJequitiServer
                 list.Palavras = listaSecretaPalavrasCripto;
                 msg.Type = "palavras";
                 msg.listaPalavras = list;
-                var serializeObject = JsonConvert.SerializeObject(msg);
+                var serializeObject = JsonConvert.SerializeObject(msg); // envia palavras
                 SendClient.PostQueue(jogador.Nomejogador, serializeObject);
                 var msg2 = new TipoMensagem();
                 msg2.Type = "pontos";
                 msg2.jogador = listaJogadores.FirstOrDefault(s => s.Nomejogador.Equals(verificaJogador.Nomejogador));
-                var serializeObject2 = JsonConvert.SerializeObject(msg);
-                SendClient.PostQueue(verificaJogador.Nomejogador, serializeObject2);
-                sendNaoEsuaVez(jogador.Nomejogador);
+                var serializeObject2 = JsonConvert.SerializeObject(msg2);
+                SendClient.PostQueue(verificaJogador.Nomejogador, serializeObject2); // envia pontos
+                EnviarMensagem(verificaJogador.Nomejogador, "Bem vindo de Volta!!");
+                IsNotAtualPlayer(jogador.Nomejogador);
             }
             InserirLog("Jogador " + jogador.Nomejogador + " adicionado");
         }
