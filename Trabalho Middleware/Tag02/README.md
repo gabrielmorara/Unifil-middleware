@@ -22,23 +22,23 @@ Para o cliente e servidor executar os mesmos passos:
 * Instalar os .exe RodaRodaJequitiServer e RodaRodaJequitiClient dentro da pasta "Executaveis"
 
 # Servidor
-* Apos executar o RodaRodaJequitiServer, a seguinte tela devera aparecer:
+* Apos executar o RodaRodaJequitiServer, a seguinte tela deverá aparecer:
 
 ![alt text](https://github.com/gabrielmorara/Unifil-middleware/blob/master/Trabalho%20Middleware/Tag02/IMG/server.png)
 
 O servidor é responsável por:
 * Iniciar o jogo
 * Notificar o jogador quando é sua vez, ou averter quando tentar jogar é não é sua vez
-* Controlar a lista de jogares
+* Controlar a lista de jogadores
 * Gerar as palavras para os jogadores
-* Controlar os acertos e erros notificando os clientes e passando a veza para o próximo
+* Controlar os acertos e erros notificando os clientes e passando a vez para o próximo
 * Controlar dos pontos
 * Apresentar toda interação feita com o cliente no Form
 
-O jogador atual e representado pela list_client com o checkbox marcado, porem o mesmo é notificado pela sua interface quando sua vez chegar!
+O jogador atual e apresentado pela list_client com o checkbox marcado, porém o mesmo é notificado pela sua interface quando sua vez chegar!
 
 # Cliente
-* apos executar o RodaRodaJequitiClient, a seguinte tela devera aparecer:
+* apos executar o RodaRodaJequitiClient, a seguinte tela deverá aparecer:
 
 ![alt text](https://github.com/gabrielmorara/Unifil-middleware/blob/master/Trabalho%20Middleware/Tag02/IMG/clientes.png)
 
