@@ -8,7 +8,6 @@ Esta etapa do projeto foi implementada utilizando RPC para a comunicação entre
 * Apache Thrift (https://thrift.apache.org)
 
 # Como rodar o projeto
-Para o cliente e servidor executar os mesmos passos:
 * Clonar o projeto
 * Abrir o projeto no Visual Studio(Tag03\RodaRodaJequitiRPC\RodaRodaJequitiRPC.sln)
 * Baixar dependências com Nuget ( Visual Studio -> Botao esquerdo em cima do projeto -> Restaurar pacotes NuGet)
@@ -35,7 +34,7 @@ O servidor é responsável por:
 * Apresentar toda interação feita no console
 
 # Cliente
-* apos executar o Cliente, devera aparcer um Form para cada instancia:
+* Apos executar o Cliente, devera aparecer um Form para cada instancia:
 
 ![alt text](https://github.com/gabrielmorara/Unifil-middleware/blob/master/Trabalho%20Middleware/Tag03/IMG/cliente.png)
 
